@@ -21,7 +21,7 @@ vm.loggedIn=Auth.isLoggedIn();
     
     vm.upload = function (file) {
         Upload.upload({
-            url: 'http://localhost:3000/api/notes/upload', //webAPI exposed to upload the file
+            url: '/api/notes/upload', //webAPI exposed to upload the file
             data:{
                             user:vm.user._id,
                             displayname:vm.uploadData.displayname,
