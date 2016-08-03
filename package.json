@@ -1,0 +1,25 @@
+{
+  "name": "backbenchers",
+  "version": "1.0.2",
+  "description": "Backbenchers a mean stack application by jash infotech",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "jash",
+  "license": "ISC",
+  "dependencies": {
+    "gm": "*",
+    "bcryptjs": "^2.0.2",
+    "body-parser": "~1.15.0",
+    "morgan": "*",
+    "mongoose": "*",
+    "multer": "*",
+    "socket.io": "*",
+    "jsonwebtoken": "*",
+    "connect-multiparty": "*",
+    "express": "~4.13.4"
+    
+  }
+}

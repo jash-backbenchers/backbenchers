@@ -1,0 +1,104 @@
+
+<div class="row" ng-init="vm.visituserload()">
+	<div class="col-sm-2">
+		</br>
+		<div class="col-sm-12 profpic">
+			<span ng-if="!vm.vpic" style="font-size:200px;color:rgba(116, 170, 175, 0.65); " class="glyphicon glyphicon-user"></span>
+			<img ng-if="vm.vpic" ng-src=public/thumnail/{{vm.getUserUser.username}}-{{vm.getUserUser.picstamp}}.jpg>
+		</div>
+	</div>
+
+	<div class="col-sm-7">
+		</br>
+		<div class="col-sm-12">
+			<h1 style="padding-top: 200px">{{vm.getUserUser.name}}</h1>
+			<p class="text-muted">Works at Google</p>
+			<h3>Popular uploads</h3>
+		</div>
+		
+
+		<div class="col-sm-12">
+		<div class="row">
+				<div class="col-sm-4" ng-repeat="x in vm.getUserData">
+					<div class="pdf" >
+						<div class="pdfimgbox">
+							<a ng-href=/preview/{{x._id}} ng-click="vm.myallocateLoc(x.displayname,x.timestamp)">
+								<img class="pdfimage" ng-src=public/thumnail/{{x.displayname}}-{{x.timestamp}}.jpg >
+							</a>
+						</div>
+						<div class="pdfdetails">
+
+						<div class="over">
+							<div class="left">
+								<h3 class="left"><a ng-href=/preview/{{x._id}} ng-click="vm.myallocateLoc(x.displayname,x.timestamp)">{{x.displayname}}</a></h3>
+							</div>
+							
+							<div class="right">
+								<div class="dropdown">
+								  <a class="dropdown-toggle black" data-toggle="dropdown" href="#">
+	        							<h3 class="right">
+											<span style="text-align: right" class="glyphicon glyphicon-option-vertical"></span>
+										</h3>
+									</a>
+									<ul class="dropdown-menu adrdel">
+								   <li><a ng-click="myvm.delupdatebag($index)">Delete from bag</a></li>
+							       <li><a ng-click="myvm.getbag()">Share</a></li> 
+								  </ul>
+								</div>
+							</div>
+						</div>
+						</br>
+						<div class="over">
+							<div class="left">
+								
+								<p class="text-muted author">By {{x.username}}</p>
+								<p class="text-muted date">{{x.date}}</p>
+							</div>
+							
+							<div class="right righttext padleft">
+								 <a class="gly" ng-click="vm.vlike($index)"><h4><span id="like" class="glyphicon glyphicon glyphicon-thumbs-up"></span></h4></a>
+								<span class="text-muted">{{x.likes.length}}</span>
+							
+							</div>
+							<div class="right ">
+								<a class="gly" ng-click="vm.vdislike($index)"><h4>
+								<span id="like" class="glyphicon glyphicon glyphicon-thumbs-down"></span></h4></a>
+								<span class="text-muted">{{x.dislikes.length}}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+
+	<div class="col-sm-3 stats side padleft">
+
+		<h1 class="white">Stats</h1>
+		
+		<ul class="nav nav-pills nav-stacked">
+			
+			<li class="whiteborder">
+				<h3 class="white">Joined on</h3>
+				<h4 class="text-muted">{{vm.getUserUser.timestamp | date}}</h4>
+			</li>
+			<li class="whiteborder">
+				<h3 class="white"><span class="glyphicon glyphicon glyphicon-thumbs-up"></span>{{vm.vtotlikes}}</h3>
+				<h4 class="text-muted">Thankfull</h4>
+			</li>
+			<li class="whiteborder">
+				<h3 class="white"><span class="glyphicon glyphicon glyphicon-thumbs-down"></span>{{vm.vtotdislikes}}</h3>
+				<h4 class="text-muted">Downvotes</h4>
+			</li>
+			<li class="whiteborder">
+				<h3 class="white">Follow <span class="glyphicon glyphicon-plus-sign white"></span></h3>
+			</li>
+			<li>
+				</br>
+				<h3 class="white">Newsleter</h3>
+				<a  href="#" class="btn gghost btn-lg">Subscribe</a>
+			</li>
+		</ul>
+	</div>
+</div>

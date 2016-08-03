@@ -1,0 +1,126 @@
+<div class="row compressed " ng-init="vm.previewload()" >
+	<div class="col-sm-3 side">
+		</br>
+		<ul class="nav nav-pills nav-stacked">
+  <li><a href="#">Home</a></li>
+  
+  <li><a href="#">Primary Education<span class="caret"></span></a>
+	  <ul class="nav nav-pills nav-stacked sub">
+	  	<li><a href="#">LKG</a></li>
+	  	<li><a href="#">UKG</a></li>
+	  	<li><a href="#">&#8544; Class</a></li>
+	  	<li><a href="#">&#8545; Class</a></li>
+	  	<li><a href="#">&#8546; Class</a></li>
+	  	<li><a href="#">&#8547; Class</a></li>
+	  	<li><a href="#">&#8548; Class</a></li>
+	  </ul>
+  </li>
+  <li><a href="#">Secondary Education<span class="caret"></span></a>
+	  <ul class="nav nav-pills nav-stacked sub">
+	  	<li><a href="#">&#8549; Class</a></li>
+	  	<li><a href="#">&#8550; Class</a></li>
+	  	<li><a href="#">&#8551; Class</a></li>
+	  	
+	  	<li><a href="#">&#8552; Class</a></li>
+	  	<li><a href="#">&#8553; Class</a></li>
+	  </ul>
+  </li>
+  <li><a href="#">Intermediate Education<span class="caret"></span></a>
+	  <ul class="nav nav-pills nav-stacked sub">
+	  	<li><a href="#">MPC</a></li>
+	  	<li><a href="#">BIPC</a></li> 
+	  	<li><a href="#">MEC</a></li>
+	  </ul>
+  </li>
+  <li><a href="#">Btech Engineering<span class="caret"></span></a>
+	  <ul class="nav nav-pills nav-stacked sub">
+	  	<li><a href="#">ECE </a></li>
+	  	<li><a href="#">EEE </a></li> 
+	  	<li><a href="#">CSE </a></li>
+	  	<li><a href="#">CIVIL </a></li>
+	  	<li><a href="#">AE </a></li>
+	  	<li><a href="#">ECM </a></li> 
+	  	<li><a href="#">MECH </a></li>
+	  </ul>
+  </li>
+  <li><a href="#">Mtech Engineering<span class="caret"></span></a>
+	  <ul class="nav nav-pills nav-stacked sub">
+	  	<li><a href="#">ECE </a></li>
+	  	<li><a href="#">EEE </a></li> 
+	  	<li><a href="#">CSE </a></li>
+	  	<li><a href="#">CIVIL </a></li>
+	  	<li><a href="#">AE </a></li>
+	  	<li><a href="#">ECM </a></li> 
+	  	<li><a href="#">MECH </a></li>
+	  </ul>
+  </li>
+  <li><a href="#">MBA</a></li>
+  <li><a href="#">MCA</a></li>
+</ul>
+	</div>
+	<div class="col-sm-6 pad">
+
+		<h1>
+			{{vm.selectedpdf.displayname}}
+		</h1>
+		<h3 class="">
+			<a  class="text-muted author" ng-href=/visituser/{{vm.selectedpdf.username}} ng-click="vm.getUser(vm.selectedpdf.username)">
+				By {{vm.selectedpdf.username}}
+			</a>
+		</h3>
+		<p class="text-muted date">{{vm.selectedpdf.timestamp | date}}</p>
+		<div class="col-sm-12">
+			<a href="/test" ng-click="vm.allocateLoc($index)">
+				<img class="col-sm-6 col-sm-offset-3" ng-src=public/thumnail/{{vm.selectedpdf.displayname}}-{{vm.selectedpdf.timestamp}}.jpg >
+			</a>
+		</div>
+		</br>
+		<h4 style="text-align: right;">
+			Rating:
+			<span class="glyphicon glyphicon glyphicon-star"></span>
+			<span class="glyphicon glyphicon glyphicon-star"></span>
+			<span class="glyphicon glyphicon glyphicon-star"></span>
+			<span class="glyphicon glyphicon glyphicon-star-empty"></span>
+			<span class="glyphicon glyphicon glyphicon-star-empty"></span>
+		</h4>
+		<h3>Description:</h3>
+		<p>NO description available....</p>
+	</div>
+	<div class="col-sm-3 outer stats side">
+			<h1 
+			style="text-align: center;background-color:#716d6d;margin: 0px;
+			padding:20px 0px 10px 0px"class="white">
+				Comments
+			</h1>
+		<div >
+		
+		<div class="overauto">
+		<ul class="nav nav-pills nav-stacked ">
+			
+			<li class="whiteborder padleft commentsani" ng-repeat="x in vm.selectedpdf.comments">
+				<h3 class="white">{{x.user}}</h3>
+				<div style="overflow: auto">
+					<h4 class="text-muted" style="float: left">{{x.comment}}</h4>
+
+					<button  ng-show="vm.user.username==x.user" style="text-align: right;color: white;float: right;" class="btn btn-danger" ng-click="vm.delcomment(x._id,$index)"><span class="glyphicon glyphicon-trash"></span></button>
+				</div>
+				<h4 style="text-align: right " class="text-muted compressed">{{x.timestamp | date}}</h4>
+			</li>
+		</ul>
+		</div>
+		<div class=" inner padleft">
+			<form class="form-inline"  ng-submit='vm.comment()' role="form">
+			<div class="form-group">
+				    <input type="text" class="form-control" ng-model="vm.comment.data" id="name" placeholder="Say something...">
+				    
+			</div>
+			
+			<div class="form-group"> 
+				    <button type="submit" class=" ghost btn ">Comment</button>
+			</div>
+		</form>
+
+		</div>
+		</div>
+	</div>
+</div>

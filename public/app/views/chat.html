@@ -1,0 +1,57 @@
+<div ng-controller="socketcontroller as vm">
+	<div class="row">
+		<div class="col-sm-10 col-sm-offset-1">
+			<div class="row" >
+				<div class="col-sm-0">
+					<div class="row" >
+						<div class="col-sm-12">
+							
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-9 msgbox">
+					<div class="row message_container">
+						<div class="col-sm-12">
+							<h1>Chat room</h1>
+						</div>
+						<div class="row messages" ng-repeat="messsage in vm.messages">
+							<div class="col-sm-8" 
+								ng-style="{
+						  		'float': vm.user.username==messsage.user ? 'right' :'left'
+							}">
+								<b class="user">{{messsage.user}}</b>
+								<div class="col-sm-10 well well-sm " 
+									ng-style="
+									{'background-image': vm.user.username==messsage.user ? 'linear-gradient(to bottom,#CAEFC6 0,#DBFFEB 100%)' :''}">
+									<span  class="" >{{messsage.message}}</span>	
+								</div>
+							</div>
+						</div>
+					</div>
+						<div class="col-sm-12 message_send">
+							<div class="row">
+								<input class="col-sm-10" placeholder="Type message" type="text" ng-model="vm.messageData"></input>								
+								<div class="col-sm-2">
+									<button ng-click="vm.msg()">
+										<span class="success glyphicon glyphicon-send"></span>
+									</button>
+								</div>
+							</div>
+						</div>
+				</div>
+
+				<div class="col-sm-3 onlineusers">
+					<div class="row" >
+							<h2 >Online users</h2>
+					</div>
+					<div class="row" ng-repeat="user in vm.users">
+						<h3 class="col-sm-3 col-sm-offset-1"><span class="success glyphicon glyphicon-user "></span></h3>
+						<h3 class="col-sm-7" style="float: left">{{user}}</h3>
+					</div>
+				</div>	
+
+			</div>
+		</div>
+	</div>
+</div>
