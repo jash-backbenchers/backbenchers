@@ -3,17 +3,16 @@ angular.module('uploadcntrl',['ngFileUpload','authService'])
 
 .controller('uploadcontroller',function(Upload,$window,Auth,$location) {
   
-var vm = this;  
-vm.loggedIn=Auth.isLoggedIn();
-    if (vm.loggedIn) {
-        Auth.getUser()
-            .then(function(data) {
-                vm.user=data.data;
-            });
-        }
-    else
+var vm = this; 
+vm.loaduser=function(user) {
+    if (user) {
+        vm.user=user;
+    } else {
         vm.user={};
+    }
+} 
     vm.submit = function(){ //function to call on form submit
+        
         if (vm.upload_form.file.$valid && vm.file) { //check if from is valid
             vm.upload(vm.file); //call upload function
         }
@@ -25,14 +24,15 @@ vm.loggedIn=Auth.isLoggedIn();
             data:{
                             user:vm.user._id,
                             displayname:vm.uploadData.displayname,
-                            tags:vm.uploadData.tags},
-
+                            tags:vm.uploadData.tags,
+                            description:vm.uploadData.description,
+                            level:vm.uploadData.level},
             file:file
 
              //pass file as data, should be user ng-model
         }).then(function (resp) { //upload function returns a promise
             if(resp.data.error_code === 0){ //validate success
-               $location.path('/lib');
+               $location.path('/home');
             } else {
                 $window.alert('an error occured');
             }

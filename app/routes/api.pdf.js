@@ -2,6 +2,7 @@ var gm = require('gm');
 var notes=require('../models/pdf');
 var User=require('../models/user');
 var Comments=require('../models/comments');
+var Forumreplys=require('../models/forumreplys');
 var multer = require('multer');
 var middleware=require('../middleware/middleware');
 
@@ -14,9 +15,7 @@ module.exports=function(app,express) {
         filename: function (req, file, cb,fields,res) {
         	
             var datetimestamp = Date.now();
-            var d=new Date(datetimestamp
-            	);
-            var date=d.getDate()+"-"+d.getMonth()+"-"+d.getFullYear();
+    
             cb(null, req.body.displayname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1]);
         	gm('./pdf/'+req.body.displayname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1]+'[0]') // The name of your pdf
 		    .setFormat("jpg")
@@ -29,10 +28,12 @@ module.exports=function(app,express) {
                     var pdf=new notes({
                         user:req.decoded._id,
                         username:req.decoded.username,
+                        occupation:req.decoded.occupation,
                         displayname:req.body.displayname,
                         timestamp:datetimestamp,
-                        date:date,
-                        tags:req.body.tags
+                        tags:req.body.tags,
+                        description:req.body.description,
+                        level:req.body.level
 
                     });
                     pdf.save(function(err) {
@@ -79,7 +80,7 @@ multipartyMiddleware = multiparty();
 
     apinotes.get('/all',middleware.requireLogin,function(req, res) {
         
-        notes.find({}).populate('comments').exec(function(err,notes) {
+        notes.find({}).populate('comments').populate('forumtopics.reply').exec(function(err,notes) {
             if(err)
             {
                 res.send(err);
@@ -91,7 +92,7 @@ multipartyMiddleware = multiparty();
 
     apinotes.get('/bookById/:id',middleware.requireLogin,function(req, res) {
         
-        notes.findById(req.params.id).populate('comments').exec(function(err,notes) {
+        notes.findById(req.params.id).populate('comments').populate('forumtopics.reply').exec(function(err,notes) {
             if(err)
             {
                 res.send(err);
@@ -348,7 +349,73 @@ multipartyMiddleware = multiparty();
             }
         })
     });
+    apinotes.put('/addtopic/:id',middleware.requireLogin,function(req,res) {
+        console.log(req.body);
+        notes.findById(req.params.id,function(err,notes) {
+                    if(err)
+                    {
+                        res.send(err);
+                        return;
+                    }
+                    else
+                    {
+                        notes.forumtopics.push({name:req.body.name,views:0});
+                        notes.save(function (err) {
+                            if(!err)
+                            {
+                                res.json({
+                                    message:"successfully addtopic to book",
+                                    success:true
+                                }); 
+                            }
+                            else
+                                console.log(err);
+                        });
+                    }
+                });
+                
+    });
+    apinotes.put('/addreply/:id',middleware.requireLogin,function(req,res) {
+        var rep=req.body;
+        notes.findById(req.params.id,function(err,notes) {
+                    if(err)
+                    {
+                        res.send(err);
+                        return;
+                    }
+                    else
+                    {
+                        var timestamp=Date.now();
+                        var reply={timestamp:timestamp,reply:rep.reply,userid:rep.userid,user:rep.user};
 
+                        var newreply=new Forumreplys(reply);
+                        newreply.save(function(error,reply) {
+                            if (error) {
+                                console.log('error occured...fuck this');
+                                console.log(error);
+                            } else {
+                                console.log('no error fuck me Hahhha hurrey');
+                                console.log(reply);
+                                notes.forumtopics[rep.index].reply.push(reply);
+                                notes.save(function(err) {
+                                   if(!err)
+                                    {
+                                        res.json({
+                                            reply:reply,
+                                            message:"successfully replied to forum topic",
+                                            success:true
+                                        }); 
+                                    }
+                                    else
+                                        console.log(err);
+                                })
+                            }
+                        })
+                        
+                    }
+                });
+                
+    });
     apinotes.put('/comments/:id',middleware.requireLogin,function(req,res) {
         comments=new Comments(req.body);
         comments.save(function(err,comment) {

@@ -1,25 +1,33 @@
 {
   "name": "backbenchers",
-  "version": "1.0.2",
-  "description": "Backbenchers a mean stack application by jash infotech",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+  "description": "backbenchers beta 1.0 with MongoDB, Express, AngularJS, and Node.js.",
+  "version": "1.0-beta",
+  "backbenchers-version": "1.0-beta",
+  "private": true,
+  "author": "https://github.com/jash-backbenchers",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jash-backbenchers/backbenchers.git"
   },
-  "author": "jash",
-  "license": "ISC",
+  "engines": {
+    "node": ">=0.12.0",
+    "npm": ">=2.0.0"
+  },
+  "scripts": {
+    "start": "grunt",
+    "test": "grunt test",
+    "postinstall": "bower install --config.interactive=false"
+  },
   "dependencies": {
-    "gm": "*",
     "bcryptjs": "^2.0.2",
     "body-parser": "~1.15.0",
-    "morgan": "*",
+    "express": "~4.13.4",
+    "gm": "*",
     "mongoose": "*",
+    "morgan": "*",
     "multer": "*",
-    "socket.io": "*",
-    "jsonwebtoken": "*",
-    "connect-multiparty": "*",
-    "express": "~4.13.4"
-    
+    "nodemon": "^1.11.0",
+    "socket.io": "*"
   }
 }

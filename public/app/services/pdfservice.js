@@ -9,6 +9,12 @@ angular.module('pdfService',[])
 	pdfFactory.comment=function(id,comment) {
 		return $http.put('/api/notes/comments/'+id,comment);
 	}
+	pdfFactory.addtopic=function(id,topic) { 
+		return $http.put('/api/notes/addtopic/'+id,topic);
+	}
+	pdfFactory.addreply=function(id,reply) { 
+		return $http.put('/api/notes/addreply/'+id,reply);
+	}
 	pdfFactory.dislike=function(notes) {
 		return $http.put('/api/notes/dislike/'+notes);
 	}

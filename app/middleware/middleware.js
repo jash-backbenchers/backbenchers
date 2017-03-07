@@ -10,7 +10,8 @@ module.exports.createToken =function(user) {
 		name:user.name,
 		username:user.username,
 		picstamp:user.picstamp,
-		timestamp:user.timestamp
+		timestamp:user.timestamp,
+		occupation:user.occupation
 	},secreteKey,{expiresIn:'10h'});
 	
 	return token;

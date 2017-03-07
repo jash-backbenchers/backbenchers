@@ -2,17 +2,23 @@
 
 angular.module('socketcntrl',['socketService','authService'])
 
-.controller('socketcontroller',function($scope,Socket,$rootScope,$location,$window,Auth,AuthToken) {
+.controller('socketcontroller',function($scope,Socket,$rootScope,$location,$window,Auth,AuthToken,$scope) {
 	var scon=this;
 	scon.user={};
 	scon.users=[];
 	scon.messages=[];
-	if (Auth.isLoggedIn) {
-		Auth.getUser()
-			.then(function(data) {
-				scon.user=data.data;
-				scon.userx=scon.user;
+	scon.loaduserx=function(user) {
+		console.log('in loadx');
+		
+		scon.user=user;
+		scon.userx=user;
+
+		if (Auth.isLoggedIn) {
+		if(scon.user) {
+				
 				Socket.emit('connection');
+				console.log('connecting');
+				console.log(scon.user.username);
 				Socket.emit('add-user',{'user':scon.user.username});
 				Socket.emit('users',{});
 
@@ -32,11 +38,18 @@ angular.module('socketcntrl',['socketService','authService'])
 
 				scon.msg=function() {
 			  		console.log('messaging');
-			  		if (scon.messageData !='') {
+			  		if (scon.messageData != null) {
 			  			Socket.emit('message',{message:scon.messageData,'user':scon.user.username});
-			  		
+			  			scon.messageData='';
 			  		}
 			  		
+			  	}
+
+			  	scon.adjustmheight=function() {
+			  		var m=document.getElementById('messagesec');
+					m.scrollTop=m.scrollHeight;
+					console.log("adjustmgeight");
+
 			  	}
 
 				Socket.on('users',function(data) {
@@ -46,20 +59,10 @@ angular.module('socketcntrl',['socketService','authService'])
 
 				Socket.on('message',function(data) {
 					scon.messages.push(data);
+					scon.adjustmheight();
 				})
-
-				
-
-			  	
-
-
-
-
-
-
-			});
-
+			};
+		}
 	}
-		
 
 })

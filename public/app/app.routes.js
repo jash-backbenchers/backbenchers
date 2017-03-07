@@ -14,6 +14,10 @@ angular.module('appRoutes',['ngRoute'])
 		templateUrl:'public/app/views/visituser.html',
 		authenticated:false
 	})
+	.when('/reloaduser',{
+		templateUrl:'public/app/views/login.html',
+		authenticated:true
+	})
 	.when('/login',{
 		templateUrl:'public/app/views/login.html',
 		authenticated:false

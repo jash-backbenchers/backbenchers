@@ -1,75 +1,124 @@
-<div class="row " ng-controller="mybagcontroller as myvm">
-	<div class="col-sm-3 side">
-		</br>
-		<ul class="nav nav-pills nav-stacked">
-  <li><a href="#">Home</a></li>
-  
-  <li><a href="#">Primary Education<span class="caret"></span></a>
-	  <ul class="nav nav-pills nav-stacked sub">
-	  	<li><a href="#">LKG</a></li>
-	  	<li><a href="#">UKG</a></li>
-	  	<li><a href="#">&#8544; Class</a></li>
-	  	<li><a href="#">&#8545; Class</a></li>
-	  	<li><a href="#">&#8546; Class</a></li>
-	  	<li><a href="#">&#8547; Class</a></li>
-	  	<li><a href="#">&#8548; Class</a></li>
-	  </ul>
-  </li>
-  <li><a href="#">Secondary Education<span class="caret"></span></a>
-	  <ul class="nav nav-pills nav-stacked sub">
-	  	<li><a href="#">&#8549; Class</a></li>
-	  	<li><a href="#">&#8550; Class</a></li>
-	  	<li><a href="#">&#8551; Class</a></li>
-	  	<li><a href="#">&#8552; Class</a></li>
-	  	<li><a href="#">&#8553; Class</a></li>
-	  </ul>
-  </li>
-  <li><a href="#">Intermediate Education<span class="caret"></span></a>
-	  <ul class="nav nav-pills nav-stacked sub">
-	  	<li><a href="#">MPC</a></li>
-	  	<li><a href="#">BIPC</a></li> 
-	  	<li><a href="#">MEC</a></li>
-	  </ul>
-  </li>
-  <li><a href="#">Btech Engineering<span class="caret"></span></a>
-	  <ul class="nav nav-pills nav-stacked sub">
-	  	<li><a href="#">ECE </a></li>
-	  	<li><a href="#">EEE </a></li> 
-	  	<li><a href="#">CSE </a></li>
-	  	<li><a href="#">CIVIL </a></li>
-	  	<li><a href="#">AE </a></li>
-	  	<li><a href="#">ECM </a></li> 
-	  	<li><a href="#">MECH </a></li>
-	  </ul>
-  </li>
-  <li><a href="#">Mtech Engineering<span class="caret"></span></a>
-	  <ul class="nav nav-pills nav-stacked sub">
-	  	<li><a href="#">ECE </a></li>
-	  	<li><a href="#">EEE </a></li> 
-	  	<li><a href="#">CSE </a></li>
-	  	<li><a href="#">CIVIL </a></li>
-	  	<li><a href="#">AE </a></li>
-	  	<li><a href="#">ECM </a></li> 
-	  	<li><a href="#">MECH </a></li>
-	  </ul>
-  </li>
-  <li><a href="#">MBA</a></li>
-  <li><a href="#">MCA</a></li>
-</ul>
-	</div>
-	<div class="col-sm-9">
-		<div class="col-sm-12">
-			<div class="col-sm-6 col-sm-push-1">
-				</br>
-				<div class="input-group">
-					<input type="text" class="form-control" placeholder="Search" ng-model="myvm.searchfilter"></input>
-					<span class="input-group-addon glyphicon glyphicon-search" style="top: 0px"></span>
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-12">
-			<div class="row">
-				<div class="col-sm-3 x" ng-repeat="x in myvm.pdflist | filter: myvm.searchfilter">
+<div class="row compressed" ng-init="myvm.loaduser(vm.user)" ng-controller="mybagcontroller as myvm">
+    <div class="col-sm-3 side">
+        </br>
+        <ul class="nav nav-pills nav-stacked">
+            <li><a ng-click=vm.sidesearch("") ng-href="/lib">Home</a></li>
+            <li><a href="#">Primary Education<span class="caret"></span></a>
+                <ul class="nav nav-pills nav-stacked sub">
+                    <li><a ng-click=vm.sidesearch("LKG") ng-href="/lib">LKG</a></li>
+                    <li><a ng-click=vm.sidesearch("UKG") ng-href="/lib">UKG</a></li>
+                    <li><a ng-click=vm.sidesearch("1st_class") ng-href="/lib">&#8544; Class</a></li>
+                    <li><a ng-click=vm.sidesearch("2nd_class") ng-href="/lib">&#8545; Class</a></li>
+                    <li><a ng-click=vm.sidesearch("3rd_class") ng-href="/lib">&#8546; Class</a></li>
+                    <li><a ng-click=vm.sidesearch("4th_class") ng-href="/lib">&#8547; Class</a></li>
+                    <li><a ng-click=vm.sidesearch("5th_class") ng-href="/lib">&#8548; Class</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Secondary Education<span class="caret"></span></a>
+                <ul class="nav nav-pills nav-stacked sub">
+                    <li><a ng-click=vm.sidesearch("6th_class") ng-href="/lib">&#8549; Class</a></li>
+                    <li><a ng-click=vm.sidesearch("7th_class") ng-href="/lib">&#8550; Class</a></li>
+                    <li><a ng-click=vm.sidesearch("8th_class") ng-href="/lib">&#8551; Class</a></li>
+                    <li><a ng-click=vm.sidesearch("9th_class") ng-href="/lib">&#8552; Class</a></li>
+                    <li><a ng-click=vm.sidesearch("10th_class") ng-href="/lib">&#8553; Class</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Intermediate Education<span class="caret"></span></a>
+                <ul class="nav nav-pills nav-stacked sub">
+                    <li><a ng-click=vm.sidesearch("MPC") ng-href="/lib">MPC</a></li>
+                    <li><a ng-click=vm.sidesearch("BIPC") ng-href="/lib">BIPC</a></li>
+                    <li><a ng-click=vm.sidesearch("MEC") ng-href="/lib">MEC</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Btech Engineering<span class="caret"></span></a>
+                <ul class="nav nav-pills nav-stacked sub">
+                    <li><a ng-click=vm.sidesearch("ECE") ng-href="/lib">ECE </a></li>
+                    <li><a ng-click=vm.sidesearch("EEE") ng-href="/lib">EEE </a></li>
+                    <li><a ng-click=vm.sidesearch("CSE") ng-href="/lib">CSE </a></li>
+                    <li><a ng-click=vm.sidesearch("CIVIL") ng-href="/lib">CIVIL </a></li>
+                    <li><a ng-click=vm.sidesearch("AE") ng-href="/lib">AE </a></li>
+                    <li><a ng-click=vm.sidesearch("ECM") ng-href="/lib">ECM </a></li>
+                    <li><a ng-click=vm.sidesearch("MECH") ng-href="/lib">MECH </a></li>
+                </ul>
+            </li>
+            <li><a href="#">Mtech Engineering<span class="caret"></span></a>
+                <ul class="nav nav-pills nav-stacked sub">
+                    <li><a ng-click=vm.sidesearch("ECE") ng-href="/lib">ECE </a></li>
+                    <li><a ng-click=vm.sidesearch("EEE") ng-href="/lib">EEE </a></li>
+                    <li><a ng-click=vm.sidesearch("CSE") ng-href="/lib">CSE </a></li>
+                    <li><a ng-click=vm.sidesearch("CIVIL") ng-href="/lib">CIVIL </a></li>
+                    <li><a ng-click=vm.sidesearch("AE") ng-href="/lib">AE </a></li>
+                    <li><a ng-click=vm.sidesearch("ECM") ng-href="/lib">ECM </a></li>
+                    <li><a ng-click=vm.sidesearch("MECH") ng-href="/lib">MECH </a></li>
+                </ul>
+            </li>
+            <li><a ng-click=vm.sidesearch("MBA") ng-href="/lib">MBA</a></li>
+            <li><a ng-click=vm.sidesearch("MCA") ng-href="/lib">MCA</a></li>
+        </ul>
+    </div>
+    <div class="col-sm-9">
+        <div class="col-sm-12">
+            <div class="col-sm-6 col-sm-push-1">
+                </br>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" ng-model="myvm.searchfilter"></input>
+                    <span class="input-group-addon glyphicon glyphicon-search" style="top: 0px"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-6 col-md-4 card-main" style="padding: 10px" ng-repeat="x in myvm.pdflist=(myvm.pdflistx | filter: myvm.searchfilter)">
+                    <div class="card">
+                        <div class="col-sm-12 userbox">
+                            <img onerror="standby(this)" ng-src=public/thumnail/{{x.username}}.jpg style="float:left;height:50px;width:50px;border-radius: 50%">
+                            <div>
+                                <a ng-href=/visituser/{{x.username}} ng-click="vm.getUser(x.username)">
+                                    <h4>{{x.username}}</h4>
+                                </a>
+                                <p class="text-muted date">{{x.occupation}}</p>
+                            </div>
+                        </div>
+                        <div class="">
+                            <a ng-href=/preview/{{x._id}} ng-click="vm.myallocateLoc(x.displayname,x.timestamp)">
+                                <img class="thumbnail" ng-src=public/thumnail/{{x.displayname}}-{{x.timestamp}}.jpg>
+                            </a>
+                        </div>
+                        <div class="caption">
+                            <h4><a ng-href=/preview/{{x._id}} ng-click="vm.myallocateLoc(x.displayname,x.timestamp)">{{x.displayname}}</a></h4>
+                            <p class="text-muted date">{{x.timestamp | date}}</p>
+                        </div>
+                        <div class="card-description">
+                            <a class="col-sm-4" href="#" data-toggle="tooltip" title="Like" ng-click="myvm.like($index)"><span id="like" ng-class="{'activelike':vm.activelike(x.likes)}" class="glyphicon glyphicon glyphicon-thumbs-up"></span>{{x.likes.length}}
+                            </a>
+                            <a class="col-sm-4" href="#" data-toggle="tooltip" title="Dislike" ng-click="myvm.dislike($index)">
+								<span id="like" ng-class="{'activedislike':vm.activedislike(x.dislikes)}" class="glyphicon glyphicon glyphicon-thumbs-down"></span>{{x.dislikes.length}}</a>
+                            <a class="col-sm-4" href="#" data-toggle="tooltip" title="Remove from bag"ng-click="myvm.delupdatebag($index)"
+                            data-toggle="modal" data-target="#">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal -->
+                    <div id="delfrombag" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Successfully deleted from bag</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p>The notes has been sucessfully deleted from your bag</p>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                <!--
+				<div class="col-sm-3 col-sm-offset-0 x col-xs-8 col-xs-offset-2" ng-repeat="x in myvm.pdflist=(myvm.pdflistx | filter: myvm.searchfilter)">
 					<div class="pdf" >
 						<div class="pdfimgbox">
 							<a ng-href=/preview/{{x._id}} ng-click="vm.myallocateLoc(x.displayname,x.timestamp)">
@@ -91,8 +140,8 @@
 										</h3>
 									</a>
 									<ul class="dropdown-menu adrdel">
-								   <li><a ng-click="myvm.delupdatebag($index)">Delete from bag</a></li>
-							       <li><a ng-click="myvm.getbag()">Share</a></li> 
+								   <li><a href="#" ng-click="myvm.delupdatebag($index)">Delete from bag</a></li>
+							       <li><a href="#" ng-click="myvm.getbag()">Share</a></li> 
 								  </ul>
 								</div>
 							</div>
@@ -107,19 +156,51 @@
 							</div>
 							
 							<div class="right righttext padleft">
-								 <a class="gly" ng-click="myvm.like($index)"><h4><span id="like" class="glyphicon glyphicon glyphicon-thumbs-up"></span></h4></a>
+								 <a class="gly" href="#" ng-click="myvm.like($index)"><h4><span id="like" ng-class="{'activelike':vm.activelike(x.likes)}" class="glyphicon glyphicon glyphicon-thumbs-up"></span></h4></a>
 								<span class="text-muted">{{x.likes.length}}</span>
 							
 							</div>
 							<div class="right ">
-								<a class="gly" ng-click="myvm.dislike($index)"><h4>
-								<span id="like" class="glyphicon glyphicon glyphicon-thumbs-down"></span></h4></a>
+								<a class="gly" href="#" ng-click="myvm.dislike($index)"><h4>
+								<span id="like" ng-class="{'activedislike':vm.activedislike(x.dislikes)}" class="glyphicon glyphicon glyphicon-thumbs-down"></span></h4></a>
 								<span class="text-muted">{{x.dislikes.length}}</span>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-	</div>
+				-->
+            </div>
+        </div>
+        <div class="col-sm-12 errordiv" ng-if="!myvm.pdflistx.length">
+            <div style="padding: 50px">
+                <span class="glyphicon glyphicon-exclamation-sign text-danger" style="font-size: 150px"></span>
+                <h1>Sorry !!! currently there are no books in your bag</h1>
+                <p>There is no limit for adding books you can add as many as you need</p>
+                <a href="/lib" class="btn gghost btn"><b>Add notes</b></a>
+            </div>
+        </div>
+        <div class="col-sm-12 errordiv" ng-if="!myvm.pdflist.length && myvm.pdflistx.length">
+            <div style="padding: 50px" ng-show=0>
+                <span class="glyphicon glyphicon-exclamation-sign text-danger" style="font-size: 150px"></span>
+                <h1>Sorry !!! no books for your search criteria</h1>
+                <p>please upload ur books and help the backbenchers botherhood, And become a part of us</p>
+                <a href="/upload" class="btn gghost btn"><b>Upload notes</b></a>
+            </div>
+            <div style="padding-top: 50px" class="col-sm-10 col-sm-offset-1">
+                <div class="errorcontainer">
+                    <h1><b>Not found <span>:(</span></b></h1>
+                    <p>Sorry, but the notes you were trying to view does not exist.</p>
+                    <p>It looks like this was the result of either:</p>
+                    <ul>
+                        <li>a mistyped notes name</li>
+                        <li>searched notes might no longer exists</li>
+                    </ul>
+                    <br>
+                    <br>
+                    <p>please upload ur books and help the backbenchers botherhood, And become a part of us</p>
+                    <p><a href="/upload" class="btn gghost btn"><b>Upload notes</b></a> </p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

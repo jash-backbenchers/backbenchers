@@ -1,5 +1,5 @@
-<div ng-controller="socketcontroller as vm">
-	<div class="row">
+<div ng-controller="socketcontroller as cvm" ng-init="cvm.loaduserx(vm.user)">
+	<div class="row compressed">
 		<div class="col-sm-10 col-sm-offset-1">
 			<div class="row" >
 				<div class="col-sm-0">
@@ -11,32 +11,41 @@
 				</div>
 
 				<div class="col-sm-9 msgbox">
-					<div class="row message_container">
+					<div class="row message_container" id="messagesec">
 						<div class="col-sm-12">
 							<h1>Chat room</h1>
 						</div>
-						<div class="row messages" ng-repeat="messsage in vm.messages">
+						<div >
+						<div class="row messages" ng-repeat="messsage in cvm.messages">
 							<div class="col-sm-8" 
 								ng-style="{
-						  		'float': vm.user.username==messsage.user ? 'right' :'left'
+						  		'float': cvm.user.username==messsage.user ? 'right' :'left'
 							}">
 								<b class="user">{{messsage.user}}</b>
 								<div class="col-sm-10 well well-sm " 
 									ng-style="
-									{'background-image': vm.user.username==messsage.user ? 'linear-gradient(to bottom,#CAEFC6 0,#DBFFEB 100%)' :''}">
+									{'background-image': cvm.user.username==messsage.user ? 'linear-gradient(to bottom,#CAEFC6 0,#DBFFEB 100%)' :''}">
 									<span  class="" >{{messsage.message}}</span>	
 								</div>
 							</div>
 						</div>
+						</div>
 					</div>
 						<div class="col-sm-12 message_send">
 							<div class="row">
-								<input class="col-sm-10" placeholder="Type message" type="text" ng-model="vm.messageData"></input>								
-								<div class="col-sm-2">
-									<button ng-click="vm.msg()">
-										<span class="success glyphicon glyphicon-send"></span>
-									</button>
-								</div>
+								<form class="form-inline"  ng-submit='cvm.msg()' role="form">
+									<div class="form-group col-sm-10">
+										    <input style="width: 100%;line-height: 24px" class=" formn-cotrol" placeholder="Type message" type="text" ng-model="cvm.messageData"></input>				
+									</div>
+									
+									<div class="form-group col-sm-2"> 
+										    <button type="submit" class="gghost btn ">
+										    	<b>
+										    		Send &nbsp<span class="glyphicon glyphicon-send"></span>
+										    	</b>
+										    </button>
+									</div>
+								</form>
 							</div>
 						</div>
 				</div>
@@ -45,7 +54,7 @@
 					<div class="row" >
 							<h2 >Online users</h2>
 					</div>
-					<div class="row" ng-repeat="user in vm.users">
+					<div class="row" ng-repeat="user in cvm.users">
 						<h3 class="col-sm-3 col-sm-offset-1"><span class="success glyphicon glyphicon-user "></span></h3>
 						<h3 class="col-sm-7" style="float: left">{{user}}</h3>
 					</div>

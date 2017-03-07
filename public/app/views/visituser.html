@@ -1,104 +1,158 @@
+<div class="row compressed" ng-init="vm.visituserload()">
+    <div class="col-sm-2">
+        </br>
+        <span ng-if="!vm.vpic" style="font-size:200px;color:rgba(116, 170, 175, 0.65); " class="glyphicon glyphicon-user"></span>
+        <img ng-if="vm.vpic" ng-src=public/thumnail/{{vm.getUserUser.username}}.jpg>
+    </div>
+    <div class="col-sm-7">
+        </br>
+        <div class="col-sm-12">
+            <h1 style="padding-top: 200px">{{vm.getUserUser.name}}</h1>
+            <p class="text-muted">{{vm.getUserUser.occupation}}</p>
+            <h3>Popular uploads</h3>
+        </div>
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-6 col-md-4 card-main" style="padding: 10px" ng-repeat="x in vm.getUserData">
+                    <div class="card">
+                        <div class="col-sm-12 userbox">
+                            <img onerror="standby(this)" ng-src=public/thumnail/{{x.username}}.jpg style="float:left;height:50px;width:50px;border-radius: 50%">
+                            <div>
+                                <a ng-href="#">
+                                    <h4>{{x.username}}</h4>
+                                </a>
+                                <p class="text-muted date">{{x.occupation}}</p>
+                            </div>
+                        </div>
+                        <div class="">
+                            <a ng-href=/preview/{{x._id}} ng-click="vm.myallocateLoc(x.displayname,x.timestamp,x)">
+                                <img class="thumbnail" ng-src=public/thumnail/{{x.displayname}}-{{x.timestamp}}.jpg>
+                            </a>
+                        </div>
+                        <div class="caption">
+                            <h4><a ng-href=/preview/{{x._id}}  ng-click="vm.allocateLoc($index)">{{x.displayname}}</a></h4>
+                            <p class="text-muted date">{{x.timestamp | date}}</p>
+                        </div>
+                        <div class="card-description">
+                            <a class="col-sm-4" href="#" data-toggle="tooltip" title="Like" ng-click="vm.vlike($index)">
+                                <span id="like" ng-class="{'activelike':vm.activelike(x.likes)}" class="glyphicon glyphicon glyphicon-thumbs-up"></span>{{x.likes.length}}
+                            </a>
+                            <a class="col-sm-4" href="#" data-toggle="tooltip" title="Dislike" ng-click="vm.vdislike($index)">
+                                <span id="like" ng-class="{'activedislike':vm.activedislike(x.dislikes)}" class="glyphicon glyphicon glyphicon-thumbs-down"></span>{{x.dislikes.length}}</a>
+                            <a class="col-sm-4" href="#" data-toggle="tooltip" title="Add to bag" ng-click="vm.updatebag($index)" data-toggle="modal" data-target="#addedtobag">
+                                <span class="glyphicon glyphicon-education"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal -->
+                <div id="addedtobag" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Successfully added to bag :)</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>The notes has been sucessfully added to your bag</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--
+                <div class="col-sm-4 col-sm-offset-0 col-xs-8 col-xs-offset-2" ng-repeat="x in vm.getUserData">
+                    <div class="pdf" >
+                        <div class="pdfimgbox">
+                            <a ng-href=/preview/{{x._id}} ng-click="vm.myallocateLoc(x.displayname,x.timestamp,x)">
+                                <img class="pdfimage" ng-src=public/thumnail/{{x.displayname}}-{{x.timestamp}}.jpg >
+                            </a>
+                        </div>
+                        <div class="pdfdetails">
 
-<div class="row" ng-init="vm.visituserload()">
-	<div class="col-sm-2">
-		</br>
-		<div class="col-sm-12 profpic">
-			<span ng-if="!vm.vpic" style="font-size:200px;color:rgba(116, 170, 175, 0.65); " class="glyphicon glyphicon-user"></span>
-			<img ng-if="vm.vpic" ng-src=public/thumnail/{{vm.getUserUser.username}}-{{vm.getUserUser.picstamp}}.jpg>
-		</div>
-	</div>
-
-	<div class="col-sm-7">
-		</br>
-		<div class="col-sm-12">
-			<h1 style="padding-top: 200px">{{vm.getUserUser.name}}</h1>
-			<p class="text-muted">Works at Google</p>
-			<h3>Popular uploads</h3>
-		</div>
-		
-
-		<div class="col-sm-12">
-		<div class="row">
-				<div class="col-sm-4" ng-repeat="x in vm.getUserData">
-					<div class="pdf" >
-						<div class="pdfimgbox">
-							<a ng-href=/preview/{{x._id}} ng-click="vm.myallocateLoc(x.displayname,x.timestamp)">
-								<img class="pdfimage" ng-src=public/thumnail/{{x.displayname}}-{{x.timestamp}}.jpg >
-							</a>
-						</div>
-						<div class="pdfdetails">
-
-						<div class="over">
-							<div class="left">
-								<h3 class="left"><a ng-href=/preview/{{x._id}} ng-click="vm.myallocateLoc(x.displayname,x.timestamp)">{{x.displayname}}</a></h3>
-							</div>
-							
-							<div class="right">
-								<div class="dropdown">
-								  <a class="dropdown-toggle black" data-toggle="dropdown" href="#">
-	        							<h3 class="right">
-											<span style="text-align: right" class="glyphicon glyphicon-option-vertical"></span>
-										</h3>
-									</a>
-									<ul class="dropdown-menu adrdel">
-								   <li><a ng-click="myvm.delupdatebag($index)">Delete from bag</a></li>
-							       <li><a ng-click="myvm.getbag()">Share</a></li> 
-								  </ul>
-								</div>
-							</div>
-						</div>
-						</br>
-						<div class="over">
-							<div class="left">
-								
-								<p class="text-muted author">By {{x.username}}</p>
-								<p class="text-muted date">{{x.date}}</p>
-							</div>
-							
-							<div class="right righttext padleft">
-								 <a class="gly" ng-click="vm.vlike($index)"><h4><span id="like" class="glyphicon glyphicon glyphicon-thumbs-up"></span></h4></a>
-								<span class="text-muted">{{x.likes.length}}</span>
-							
-							</div>
-							<div class="right ">
-								<a class="gly" ng-click="vm.vdislike($index)"><h4>
-								<span id="like" class="glyphicon glyphicon glyphicon-thumbs-down"></span></h4></a>
-								<span class="text-muted">{{x.dislikes.length}}</span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		</div>
-	</div>
-
-	<div class="col-sm-3 stats side padleft">
-
-		<h1 class="white">Stats</h1>
-		
-		<ul class="nav nav-pills nav-stacked">
-			
-			<li class="whiteborder">
-				<h3 class="white">Joined on</h3>
-				<h4 class="text-muted">{{vm.getUserUser.timestamp | date}}</h4>
-			</li>
-			<li class="whiteborder">
-				<h3 class="white"><span class="glyphicon glyphicon glyphicon-thumbs-up"></span>{{vm.vtotlikes}}</h3>
-				<h4 class="text-muted">Thankfull</h4>
-			</li>
-			<li class="whiteborder">
-				<h3 class="white"><span class="glyphicon glyphicon glyphicon-thumbs-down"></span>{{vm.vtotdislikes}}</h3>
-				<h4 class="text-muted">Downvotes</h4>
-			</li>
-			<li class="whiteborder">
-				<h3 class="white">Follow <span class="glyphicon glyphicon-plus-sign white"></span></h3>
-			</li>
-			<li>
-				</br>
-				<h3 class="white">Newsleter</h3>
-				<a  href="#" class="btn gghost btn-lg">Subscribe</a>
-			</li>
-		</ul>
-	</div>
+                        <div class="over">
+                            <div class="left">
+                                <h3 class="left"><a ng-href=/preview/{{x._id}} ng-click="vm.myallocateLoc(x.displayname,x.timestamp)">{{x.displayname}}</a></h3>
+                            </div>
+                            
+                            <div class="right">
+                                <div class="dropdown">
+                                  <a class="dropdown-toggle black" data-toggle="dropdown" href="#">
+                                        <h3 class="right">
+                                            <span style="text-align: right" class="glyphicon glyphicon-option-vertical"></span>
+                                        </h3>
+                                    </a>
+                                    <ul class="dropdown-menu adrdel">
+                                   <li><a href="#" ng-click="myvm.delupdatebag($index)">Delete from bag</a></li>
+                                   <li><a href="#" ng-click="myvm.getbag()">Share</a></li> 
+                                  </ul>
+                                </div>
+                            </div>
+                        </div>
+                        </br>
+                        <div class="over">
+                            <div class="left">
+                                
+                                <p class="text-muted author">By {{x.username}}</p>
+                                <p class="text-muted date">{{x.date}}</p>
+                            </div>
+                            
+                            <div class="right righttext padleft">
+                                 <a class="gly" href="#" ng-click="vm.vlike($index)"><h4><span id="like" ng-class="{'activelike':vm.activelike(x.likes)}" class="glyphicon glyphicon glyphicon-thumbs-up"></span></h4></a>
+                                <span class="text-muted">{{x.likes.length}}</span>
+                            
+                            </div>
+                            <div class="right ">
+                                <a class="gly" href="#" ng-click="vm.vdislike($index)"><h4>
+                                <span id="like" ng-class="{'activedislike':vm.activedislike(x.dislikes)}" class="glyphicon glyphicon glyphicon-thumbs-down"></span></h4></a>
+                                <span class="text-muted">{{x.dislikes.length}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                -->
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3 stats side padleft">
+        <h1 class="white">Stats</h1>
+        <ul class="nav nav-pills nav-stacked">
+            <li class="whiteborder">
+                <h3 class="white">Joined on</h3>
+                <h4 class="text-muted">{{vm.getUserUser.timestamp | date}}</h4>
+            </li>
+            <li class="whiteborder">
+                <h3 class="white"><span class="glyphicon glyphicon glyphicon-thumbs-up"></span>{{' '+vm.vtotlikes}}</h3>
+                <h4 class="text-muted">Thankfull</h4>
+            </li>
+            <li class="whiteborder">
+                <h3 class="white"><span class="glyphicon glyphicon glyphicon-thumbs-down"></span>{{' '+vm.vtotdislikes}}</h3>
+                <h4 class="text-muted">Downvotes</h4>
+            </li>
+            <li class="whiteborder">
+                <a href="#" data-toggle="modal" data-target="#Attention">
+                    <h4 class="white">Follow <span class="glyphicon glyphicon-plus-sign white"></span></h4>
+                </a>
+            </li>
+            <li>
+                </br>
+                <h3 class="white">Newsleter</h3>
+                <a href="#" data-toggle="modal" data-target="#Attention" class="btn gghost btn-lg">Subscribe</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div id="Attention" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Attention user This feature is under construction</h4>
+            </div>
+            <div class="modal-body">
+                <p>This feature will be introduced in the next update...stay tuned :p</p>
+            </div>
+        </div>
+    </div>
 </div>

@@ -2,15 +2,46 @@ angular.module('maincntrl',[])
 
 .controller('maincontroller',function($rootScope,$location,Auth,Pdf,User,$routeParams) {
 	var vm=this;
-	vm.pdfurlprefex="public/web/viewer.html?file=http://localhost:3000/pdf/";
+	vm.user={};
+	vm.reload=Date.now();
 
+	var c=document.getElementById('c');
+	vm.pdfurlprefex="public/web/viewer.html?file=http://localhost:4000/pdf/";
+	vm.searchfilter='';
 	vm.loggedIn=Auth.isLoggedIn();
+	vm.standby=function(img) {
+		console.log("setting");
+		img.src="/img/user.png";
+	}
+	vm.checknload=function() {
+		if (vm.user) {
+			return;
+		} else {
+			vm.loaduser();
+		}
+	}
+	vm.loaduser=function() {
+		vm.loggedIn=Auth.isLoggedIn();
+		console.log('logged in : '+vm.loggedIn);
+		if (vm.loggedIn) {
+		Auth.getUser()
+			.then(function(data) {
+				vm.user=data.data;
+				console.log('loading user in loaduser');
+				console.log(vm.user);
+			});
+		}
+	else
+		vm.user={};
+	}
+	vm.loaduser();
 	var refresh=function() {
 		Pdf.all()
 		.success(function(data) {
-			vm.pdflist=data;
-			vm.totalpdfs=vm.pdflist.length;
-			console.log(vm.pdflist.notes);
+			console.log("refreshing books");
+			vm.pdflistx=data;
+			vm.totalpdfs=vm.pdflistx.length;
+			console.log(vm.pdflistx.notes);
 		});
 
 	}
@@ -19,20 +50,7 @@ angular.module('maincntrl',[])
 	$rootScope.$on('$routeChangeStart',function(event,next,current) {
 	console.log('changing');
 	vm.loggedIn=Auth.isLoggedIn();
-	if (vm.loggedIn) {
-		Auth.getUser()
-			.then(function(data) {
-				vm.user=data.data;
-				if(vm.user.picstamp)
-					vm.pic=true;
-				else
-					vm.pic=false;
-				//myrefresh();
-			});
-		}
-	else
-		vm.user={};
-
+	vm.checknload();
 	if(next.$$route.authenticated)
 	{
 		if (!vm.loggedIn)
@@ -43,6 +61,22 @@ angular.module('maincntrl',[])
 		if (!vm.loggedIn)
 			$location.path('/login');
 		refresh();
+	}
+	if(next.$$route.originalPath == "/reloaduser")
+	{
+		if (!vm.loggedIn)
+			$location.path('/login');
+		else{
+			vm.loaduser();
+			vm.reload=Date.now();
+			$location.path('/home');
+		}
+		
+	}
+	if(next.$$route.originalPath == "/home")
+	{
+		if (vm.loggedIn)
+			vm.loaduser();
 	}
 	
 	});
@@ -58,7 +92,7 @@ angular.module('maincntrl',[])
 				vm.processing=false;
 
 				if (data.success) {
-					
+					vm.loaduser();
 					$location.path('/home');
 				}
 				else
@@ -73,10 +107,12 @@ angular.module('maincntrl',[])
 
 	vm.doLogout=function() {
 		Auth.logout();
+		vm.user={};
 		$location.path('/logout');
 	}
 
 		vm.allocateLoc=function(x) {
+			console.log("in allocation");
 			console.log(x);
 			vm.selectedpdf=vm.pdflist.notes[x];
 			//console.log(vm.pdflist[0]);
@@ -84,10 +120,11 @@ angular.module('maincntrl',[])
 			vm.pdfurl=vm.pdfurlprefex+file;
 			console.log(vm.pdfurl);
 		}
-		vm.myallocateLoc=function(x,y) {
-			
+		vm.myallocateLoc=function(x,y,notes) {
+			console.log("in my allocation");
 			//console.log(vm.pdflist[0]);
 			var file=x+'-'+y+'.pdf';
+			vm.selectedpdf=notes;
 			vm.pdfurl=vm.pdfurlprefex+file;
 			console.log(vm.pdfurl);
 		}
@@ -101,6 +138,7 @@ angular.module('maincntrl',[])
 					{
 						vm.selectedpdf.comments.push(response.data.comment);
 						vm.comment.data="";
+						vm.adjustcheight();
 					}
 				})
 			}
@@ -258,7 +296,7 @@ angular.module('maincntrl',[])
 
 	vm.previewload=function() {
 		if(vm.selectedpdf)
-			console.log("loading.....");
+			vm.star();
 		else
 		{
 			console.log($routeParams.id);
@@ -266,6 +304,9 @@ angular.module('maincntrl',[])
 				.then(function(response) {
 					console.log("in pdf get book by id");
 					vm.selectedpdf=response.data.book;
+					var file=vm.selectedpdf.displayname+'-'+vm.selectedpdf.timestamp+'.pdf';
+					vm.pdfurl=vm.pdfurlprefex+file;
+					vm.star();
 				});
 		}
 
@@ -287,9 +328,116 @@ angular.module('maincntrl',[])
 				if (response.data.success) {
 					console.log("successfully deleted comment" + id);
 					vm.selectedpdf.comments.splice(index,1);
+					vm.adjustcheight();
 				}
 			})
 	}
 
+	vm.sidesearch=function(input) {
+		vm.searchfilter=input;
+	}
+
+	vm.star=function() {
+		var rating=2;
+		var ratingfil=[
+						{class:"glyphicon glyphicon glyphicon-star-empty"},
+						{class:"glyphicon glyphicon glyphicon-star-empty"},
+						{class:"glyphicon glyphicon glyphicon-star-empty"},
+						{class:"glyphicon glyphicon glyphicon-star-empty"},
+						{class:"glyphicon glyphicon glyphicon-star-empty"}
+					];
 		
-});
+		var likes=vm.selectedpdf.likes.length;
+		var dislikes=vm.selectedpdf.dislikes.length;
+		console.log(likes,dislikes);
+		if(likes>dislikes*2)
+			rating=3;
+		else if(likes>dislikes*10)
+			rating=4;
+		else if(likes>dislikes*100)
+			rating=5;
+		console.log(rating);
+		for (var i = 0; i < rating; i++) {
+			ratingfil[i].class="glyphicon glyphicon glyphicon-star";
+		}
+		vm.ratingfil=ratingfil;
+		
+	}
+
+	vm.adjustcheight=function() {
+		var c=document.getElementById('c');
+		c.scrollTop=c.scrollHeight;
+		console.log("scrool height is"+c.scrollHeight);
+	}
+	
+	vm.activelike=function(likes) {
+		if(likes.indexOf(vm.user._id) == -1)
+			return false;
+		else
+			return true;
+	}
+
+	vm.activedislike=function(dislikes) {
+		if(dislikes.indexOf(vm.user._id) == -1)
+			return false;
+		else
+			return true;
+	}
+	vm.addtopic=function() {
+		console.log('working...');
+		var topic={name:vm.newtopic};
+		Pdf.addtopic(vm.selectedpdf._id,topic)
+			.then(function(response) {
+				if (response.data.success) {
+					console.log("successfully deleted topic");
+					vm.newtopic='';
+					vm.selectedpdf.forumtopics.push(topic);
+				}
+			})
+	}
+	vm.addreply=function(reply,index) {
+		console.log('working...');
+		var reply={reply:reply,userid:vm.user._id,user:vm.user.username,index:index};
+		Pdf.addreply(vm.selectedpdf._id,reply)
+			.then(function(response) {
+				if (response.data.success) {
+					console.log("successfully replied to topic");
+					console.log(reply);
+					console.log(vm.selectedpdf.forumtopics[index]);
+					if(vm.selectedpdf.forumtopics[index].reply)
+						vm.selectedpdf.forumtopics[index].reply.push(reply);
+					else
+						$location.path('/lib');
+					vm.newreply[index]='';
+				}
+			})
+	}
+
+})
+.filter("star",function() {
+	return function(input,likes,dislikes) {
+		var rating=2;
+		var ratingfil=[
+						{class:"glyphicon glyphicon glyphicon-star-empty"},
+						{class:"glyphicon glyphicon glyphicon-star-empty"},
+						{class:"glyphicon glyphicon glyphicon-star-empty"},
+						{class:"glyphicon glyphicon glyphicon-star-empty"},
+						{class:"glyphicon glyphicon glyphicon-star-empty"}
+					];
+		//var likes=input.likes.length;
+		//var dislikes=input.dislikes.length;
+		if(likes>dislikes*2)
+			rating=3;
+		else if(likes>dislikes*10)
+			rating=4;
+		else if(likes>dislikes*100)
+			rating=5;
+		for (var i = 0; i <= rating; i++) {
+			ratingfil[i].class="glyphicon glyphicon glyphicon-star";
+		}
+		console.log(ratingfil);
+		return ratingfil;
+	}
+
+	
+})

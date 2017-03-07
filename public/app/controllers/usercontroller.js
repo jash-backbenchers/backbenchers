@@ -3,16 +3,16 @@ angular.module('usercntrl',['userService','authService'])
 .controller('usercontroller',function(Auth,Pdf,User,$location,$window,AuthToken) {
 	var vm=this;
 	vm.loggedIn=Auth.isLoggedIn();
-	if (vm.loggedIn) {
-		Auth.getUser()
-			.then(function(data) {
-				vm.user=data.data;
-				console.log("going into mybooks");
-				mybooks();
-			});
+	vm.loaduser=function(user) {
+		if (user) {
+			vm.user=user;
+			console.log("going into mybooks");
+			mybooks();
+		} else {
+			vm.user={};
 		}
-	else
-		vm.user={};
+	}
+	
 
 	vm.signupuser=function() {
 		vm.message='';

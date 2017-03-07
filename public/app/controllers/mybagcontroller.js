@@ -3,16 +3,15 @@ angular.module('mybagcntrl',[])
 .controller('mybagcontroller',function($rootScope,$location,Auth,Pdf,User) {
 	var vm=this;
 	vm.pdfurlprefex="public/web/viewer.html?file=http://localhost:3000/pdf/";
-
+	vm.searchfilter='';
 	vm.loggedIn=Auth.isLoggedIn();
-	if (vm.loggedIn) {
-		Auth.getUser()
-			.then(function(data) {
-				vm.user=data.data;
-			});
-		}
-	else
-		vm.user={};
+	vm.loaduser=function(user) {
+		if (user)
+			vm.user=user;
+		else
+			vm.user={};
+	}
+	
 	var refresh=function() {
 		//Pdf.all()
 		//.success(function(data) {
@@ -26,9 +25,9 @@ angular.module('mybagcntrl',[])
 					vm.message=response.data.message;
 					if(response.data.success)
 					{
-						vm.pdflist=response.data.data[0].mybag;
-						vm.totalpdfs=vm.pdflist.length;
-						console.log(vm.pdflist);
+						vm.pdflistx=response.data.data[0].mybag;
+						vm.totalpdfs=vm.pdflistx.length;
+						console.log(vm.pdflistx);
 					}
 					
 					});
@@ -89,7 +88,7 @@ angular.module('mybagcntrl',[])
 		vm.delupdatebag=function(x) {
 			var selectedpdf=vm.pdflist[x];
 			id=selectedpdf._id;
-			console.log(id);
+			console.log(id+"_"+x);
 			User.delupdateBag(id)
 				.then(function(response) {
 					console.log('deleting from bag');
@@ -98,6 +97,7 @@ angular.module('mybagcntrl',[])
 					{
 						
 						console.log(vm.pdflist);
+						vm.pdflistx.splice(vm.pdflistx.indexOf(vm.pdflist[x]),1);
 						vm.pdflist.splice(x,1);
 						console.log(vm.pdflist);
 					}

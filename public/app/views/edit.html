@@ -1,8 +1,9 @@
 </br>
 </br>
-<div class="row" ng-controller="editcontroller as vm">
+<div class="row"  ng-init="cvm.loaduserx(vm.user)" ng-controller="editcontroller as cvm" >
+<pre>{{vm.user | json}}</pre>  
 <div class="col-sm-6 col-sm-offset-3">
-<form   class="form" name="vm.upload_form">
+<form   class="form" name="cvm.upload_form">
     <div class="form-group">
         <label class="control-label col-sm-2" >Profile pic:</label>
         <div class="col-sm-10">
@@ -10,7 +11,7 @@
                 class="form-control"
                 type="file" 
                 ngf-select 
-                ng-model="vm.file" 
+                ng-model="cvm.file" 
                 name="file" 
                 ngf-pattern="'image/*'"
                 accept="image/*" 
@@ -18,26 +19,34 @@
                 />
             </br>
         </div>
-         <i ng-show="vm.upload_form.file.$error.required">*required</i><br>
-            <i ng-show="vm.upload_form.file.$error.maxSize">File too large 
-            {{vm.file.size / 1000000|number:1}}MB: max 3M</i>
+         <i ng-show="cvm.upload_form.file.$error.required">*required</i><br>
+            <i ng-show="cvm.upload_form.file.$error.maxSize">File too large 
+            {{cvm.file.size / 1000000|number:1}}MB: max 3M</i>
            
     </div>
     <div class="form-group">
         <label class="control-label col-sm-2" >Name:</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" ng-model="vm.uploadData.displayname" id="username" placeholder="Name" required>
+            <input type="text" class="form-control" ng-model="cvm.uploadData.displayname" id="username" placeholder="Name" required>
             </br>
         </div>
     </div>
-    
+    <!--
+    <div class="form-group">
+        <label class="control-label col-sm-2" >Occupation:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" ng-model="cvm.uploadData.occupation" id="occupation" placeholder="Occupation" required>
+            </br>
+        </div>
+    </div>
+    -->
     
     <div class="form-group"> 
         <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" ng-click="vm.submit()" class=" ghost btn ">Upload</button>
+            <button type="submit" ng-click="cvm.submit()" class=" ghost btn ">Upload</button>
         </div>
     </div>
 </form>
-{{vm.progress}}
+{{cvm.progress}}
 </div>
 </div>

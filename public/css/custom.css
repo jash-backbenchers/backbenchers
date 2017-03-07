@@ -1,281 +1,430 @@
-.user
-{
-	padding: 9px;
-	float: left;
-
-}
-.msgbox
-{
-	height: 600px;
-
-
-}
-.success
-{
-	color: #95EC97;
-}
-.message_container,.onlineusers
-{
-	background-color: #F1EEEB;
-	height: 85%;
-	overflow-y:scroll;
-	padding: 20px;
-}
-.message_send
-{
-	height: 15%;
-}
-.footer
-{
-	background-color: #333131;
-	color: #fff;
-	line-height: 60px;
-	font-size: 16px;
-}
-.p
-{
-	margin: 0px;
-}
-.ghost
-{
-	background-color: #f4511e;
-	color: #fff;
-	transition: 0.5s all;
-	-webkit-transition: 0.5s all;
-	-moz-transition: 0.5s all;
-	-o-transition: 0.5s all;
-	-ms-transition: 0.5s all;
+.blurbg {
+    background: -moz-linear-gradient(238deg, rgba(192, 192, 192, 0.65) 0%, rgba(0, 128, 128, 1) 100%);
+    /* ff3.6+ */
+    background: -webkit-gradient(linear, left bottom, right top, color-stop(0%, rgba(0, 128, 128, 1)), color-stop(100%, rgba(192, 192, 192, 0.65)));
+    /* safari4+,chrome */
+    background: -webkit-linear-gradient(238deg, rgba(192, 192, 192, 0.65) 0%, rgba(0, 128, 128, 1) 100%);
+    /* safari5.1+,chrome10+ */
+    background: -o-linear-gradient(238deg, rgba(192, 192, 192, 0.65) 0%, rgba(0, 128, 128, 1) 100%);
+    /* opera 11.10+ */
+    background: -ms-linear-gradient(238deg, rgba(192, 192, 192, 0.65) 0%, rgba(0, 128, 128, 1) 100%);
+    /* ie10+ */
+    background: linear-gradient(212deg, rgba(192, 192, 192, 0.65) 0%, rgba(0, 128, 128, 1) 100%);
+    /* w3c */
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#c0c0c0', endColorstr='#008080', GradientType=0);
+    /* ie6-9 */
 }
 
-.ghost:hover
-{
-	color:#f4511e;
-	background-color: #fff;
-	border-color: #f4511e;
+.jumbotron{
+    margin-bottom: 0px;
 }
 
-
-.logo
+div
 {
-	font-size: 150px;
-	color: #595d5d;
-
+    text-overflow: ellipsis;
 }
-.x.ng-enter
-{
-	animation: bounceInUp 1s;
+.dots{
+    margin: auto auto;
+    position: absolute;
+    left:45%;
 }
-
-
-.x.ng-leave
-{
-	animation: bounceOut 0.8s;
+.dot{
+    margin: 5px;
+    float: left;
+    background-color: white;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%
 }
-.commentsani.ng-enter
-{
-	animation: bounceInUp 1s;
-}
-
-
-.commentsani.ng-leave
-{
-	animation: bounceOutRight 0.8s;
+.user {
+    padding: 9px;
+    float: left;
 }
 
-.xy.ng-enter
-{
-	animation: fadeIn 0.6s;
+.msgbox {
+    height: 600px;
 }
 
-
-.xy.ng-leave
-{
-	animation: fadeOut 0.5s;
+.success {
+    color: #95EC97;
 }
 
-.view.ng-enter
-{
-	animation: fadeInUp 1.2s;
-}
-.messages.ng-enter
-{
-	animation: fadeInLeft 0.5s;
-}
-.onlineusers
-{
-	background-color: #E2E2E1;
-	height: 510px;
-	overflow-y:scroll;
-}
-.onlineusers h2,.message_container h1
-{
-	text-align: center;
-}
-.well
-{
-	WORD-BREAK: break-word;
-}
-.pdf
-{
-	margin-top: 15px;
-	padding: 15px 10px 10px 10px;
-	background-color: rgb(214, 216, 215);
-}
-.pdfimgbox
-{
-	height:110px;
-	width: 80%;
-	background-color: grey;
-	margin: 0 auto;
-}
-.pdfimage
-{
-	height: 100%;
-	width: 100%;
-}
-.pdfdetails
-{
-	padding-left:20px !important;
-	padding-right:20px !important;
-	overflow: hidden;
-}
-.pdfdetails h3
-{
-	float: left;
-}
-.pdfdetails
-.right h4
-{
-	margin-top: 0px;
-	margin-bottom: 0px;
-}
-.left
-{
-	float: left;
-}
-.righttext
-{
-	text-align: right;	
-}
-.right
-{
-	float: right;
-}
-.author
-{
-	margin: 0px;
-}
-.date
-{
-	font-size: 13px;
-}
-.nav-pills>li>a
-{
-	border-radius: 0px;
-	padding-left: 20px;
-}
-.nav
-{
-	font-size: 16px;
-}
-.side a
-{
-	color: rgba(255, 255, 255, 0.74);
-}
-.side
-{
-	
-	padding: 0px;
-	background-color: #444;
+.navbar-left a {
+    height: 55px;
 }
 
-.nav>li>a:focus,.nav>li>a:hover,.nav .open>a, .nav .open>a:focus, .nav .open>a:hover 
-{
-	color: #fff;
-	background-color: rgb(118, 183, 151);
-}
-.nav>li>a
-{
-	border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-}
-.sub
-{
-	padding-left: 30px;
-}
-.gly
-{
-	color: black;
-}
-.gly :hover
-{
-	color: blue;
-}
-.control-label
-{
-	padding-top: 6px;
-	padding-bottom: 6px;
-}
-.glyphicon-option-vertical
-{
-	padding-left: 30px;
-}
-.padleft
-{
-	padding-left: 30px;
-}
-.black
-{
-	color: black;
-}
-.white
-{
-	color: white;
-}
-.stats
-{
-	height: 600px;
+.message_container,
+.onlineusers {
+    background-color: #F1EEEB;
+    height: 85%;
+    overflow-y: scroll;
+    padding: 20px;
 }
 
-.whiteborder
-{
-	    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+.message_send {
+    height: 15%;
 }
 
-.gghost
-{
-	background-color: #fff;
-	color: rgb(118, 183, 151) !important;
-	transition: 0.5s all;
-	-webkit-transition: 0.5s all;
-	-moz-transition: 0.5s all;
-	-o-transition: 0.5s all;
-	-ms-transition: 0.5s all;
+.footer {
+    background-color: #333131;
+    color: #fff;
+    line-height: 60px;
+    font-size: 16px;
 }
 
-.gghost:hover
-{
-	color: #fff !important;
+.p {
+    margin: 0px;
+}
+
+.ghost {
+    background-color: #f4511e;
+    color: #fff !important;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+}
+
+.ghost:hover {
+    color: #f4511e !important;
+    background-color: #fff;
+    border-color: #f4511e;
+}
+
+.ghost:focus,
+a:focus,
+.btn:focus {
+    outline: none;
+}
+
+#myNavbar {
+    background-color: #fbfbfb !important;
+}
+
+.logo {
+    font-size: 150px;
+    color: #595d5d;
+}
+
+.card-main.ng-enter {
+    animation: fadeIn 0.8s;
+}
+
+.card-main.ng-leave {
+    animation: bounceOut 0.8s;
+}
+
+.x.ng-enter {
+    animation: bounceInUp 1s;
+}
+
+.x.ng-leave {
+    animation: bounceOut 0.8s;
+}
+
+.errordiv.ng-enter {
+    animation: fadeIn 1s;
+}
+
+.errordiv.ng-leave {
+    animation: fadeOut 1s;
+}
+
+.commentsani.ng-enter {
+    animation: bounceInUp 1s;
+}
+
+.commentsani.ng-leave {
+    animation: bounceOutRight 0.8s;
+}
+
+.xy.ng-enter {
+    animation: fadeIn 0.6s;
+}
+
+.xy.ng-leave {
+    animation: fadeOut 0.5s;
+}
+
+.view.ng-enter {
+    animation: fadeInUp 1.2s;
+}
+
+.messages.ng-enter {
+    animation: fadeInLeft 0.5s;
+}
+
+.onlineusers {
+    background-color: #E2E2E1;
+    height: 510px;
+    overflow-y: scroll;
+}
+
+.onlineusers h2,
+.message_container h1 {
+    text-align: center;
+}
+
+.well {
+    WORD-BREAK: break-word;
+}
+
+.pdf {
+    margin-top: 15px;
+    padding: 15px 10px 10px 10px;
+    background-color: rgb(214, 216, 215);
+}
+
+.pdfimgbox {
+    height: 110px;
+    width: 80%;
+    background-color: grey;
+    margin: 0 auto;
+}
+
+.pdfimage {
+    height: 100%;
+    width: 100%;
+}
+
+.pdfdetails {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    overflow: hidden;
+}
+
+.pdfdetails h3 {
+    float: left;
+}
+
+.pdfdetails .right h4 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.left {
+    float: left;
+}
+
+.righttext {
+    text-align: right;
+}
+
+.right {
+    float: right;
+}
+
+.author {
+    margin: 0px;
+}
+
+.date {
+    font-size: 13px;
+}
+
+.nav-pills>li>a {
+    border-radius: 0px;
+    padding-left: 20px;
+}
+
+.nav {
+    font-size: 16px;
+}
+
+.side a {
+    color: rgba(255, 255, 255, 0.74);
+}
+
+.side {
+    padding: 0px;
+    background-color: #444;
+}
+
+.nav>li>a:focus,
+.nav>li>a:hover,
+.nav .open>a,
+.nav .open>a:focus,
+.nav .open>a:hover {
+    color: #fff;
     background-color: rgb(118, 183, 151);
-	border-color: #fff;
 }
 
-.adrdel
-{
-	margin-left: -90px;
-	margin-top: 40px;
+.homeactive {
+    transition: 0.5s all ease;
+    padding-left: 30px;
+    color: #fff;
+    background-color: rgb(118, 183, 151);
 }
-.pad
-{
-	padding: 30px;
+
+.nav>li>a {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
-.overauto
-{
-	
-	height: 480px;
-	overflow-y: scroll;
+
+.sub {
+    padding-left: 30px;
 }
-.compressed
-{
-	margin: 0px;
-	padding: 0px;
+
+.gly {
+    color: black;
+}
+
+a.gly:hover {
+    color: #ffffff00 !important;
+}
+
+.control-label {
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
+.glyphicon-option-vertical {
+    padding-left: 30px;
+}
+
+.padleft {
+    padding-left: 30px;
+}
+
+.black {
+    color: black;
+}
+
+.white {
+    color: white;
+}
+
+.stats {
+    height: 600px;
+}
+
+.whiteborder {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.gghost {
+    background-color: #fff;
+    color: rgb(118, 183, 151) !important;
+    border-color: rgb(118, 183, 151) !important;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+}
+
+.gghost:hover {
+    color: #fff !important;
+    background-color: rgb(118, 183, 151);
+    border-color: #fff !important;
+}
+
+.adrdel {
+    margin-left: -90px;
+    margin-top: 40px;
+}
+
+.pad {
+    padding: 30px;
+}
+
+.overauto {
+    height: 480px;
+    overflow-y: scroll;
+}
+
+.compressed {
+    margin: 0px;
+    padding: 0px;
+}
+
+.errorcontainer {
+    padding: 30px 20px 50px;
+    border: 1px solid #b3b3b3;
+    border-radius: 4px;
+    margin: 0 auto;
+    box-shadow: 0 1px 10px #a7a7a7, inset 0 1px 0 #fff;
+    background: #fcfcfc;
+    color: #737373;
+}
+
+.errorcontainer h1 {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin-bottom: 20px;
+    font-size: 50px;
+    text-align: center;
+}
+
+.errorcontainer p {
+    margin: 5px 50px;
+    display: block;
+    font-size: 20px;
+}
+
+.errorcontainer li {
+    margin: 0px 50px;
+    font-size: 20px;
+}
+
+.activelike {
+    color: #76b797;
+}
+
+.activedislike {
+    color: #e22619;
+}
+
+.userbox {
+    padding: 10px 0px 10px 10px;
+}
+
+.userbox >div {
+    float: left;
+    margin-left: 10px;
+}
+
+.userbox>div> a>h4 {
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+
+.card {
+    padding-bottom: 40px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2);
+}
+
+.caption {
+    padding-left: 10px;
+}
+
+.card-description >a {
+    font-size: 22px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.thumbnail {
+    width: 100%;
+    height: 200px;
+    padding: 0;
+    margin: 0px;
+    border: 0px;
+    border-radius: 0;
+}
+
+.thumbnail>img {
+    width: 100%;
+    display: block
+}
+
+.caption h4 {
+    font-size: 26px;
+    margin-bottom: 0px;
+}
+
+.caption h4,
+.card-description {
+    margin: 0;
+    padding: 8px 0;
+    text-align: justify
 }

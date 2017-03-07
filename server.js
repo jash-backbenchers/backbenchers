@@ -13,8 +13,8 @@ var apinotes=require('./app/routes/api.pdf')(app,express);
 var middleware=require('./app/middleware/middleware');
 
 var app=express();
-mongoose.connect('mongodb://jaswanth.chodavarapu143:jaswanth143xxx@ds031965.mlab.com:31965/backbenchers',function(err) {
-//mongoose.connect('mongodb://localhost:27017/myapp',function(err) {
+//mongoose.connect('mongodb://jaswanth.chodavarapu143:jaswanth143xxx@ds031965.mlab.com:31965/backbenchers',function(err) {
+mongoose.connect('mongodb://localhost:27017/myapp',function(err) {
 	if(err)
 		console.log(err);
 	console.log('connected to database');

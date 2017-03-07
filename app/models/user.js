@@ -5,10 +5,12 @@ var Pdf=require('./pdf');
 
 var UserSchema=new Schema({
 	name:String,
+	email:String,
 	username:{type:String,required:true,index:{unique:true}},
 	password:{type:String,required:true,select:false},
 	timestamp:{type:String},
-	picstamp:{type:String},
+	occupation:{type:String},
+	picstamp:{type:Boolean},
 	mybag:[{type: Schema.ObjectId,ref: 'Pdf'}]
 });
 
